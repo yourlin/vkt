@@ -1,0 +1,50 @@
+; SPDX-FileCopyrightText: 2026 yourlin
+; SPDX-License-Identifier: MIT-0
+; Variable pointers: each invocation picks one of two storage buffers with
+; OpSelect on the buffers themselves (odd ids: binding 1, even: binding 0)
+; and stores id + 7 at index id. GLSL cannot express this, so it is SPIR-V
+; assembly (spirv-as). Pointers to two different buffers need the
+; VariablePointers capability, not only VariablePointersStorageBuffer.
+               OpCapability Shader
+               OpCapability VariablePointersStorageBuffer
+               OpCapability VariablePointers
+               OpExtension "SPV_KHR_variable_pointers"
+               OpMemoryModel Logical GLSL450
+               OpEntryPoint GLCompute %1 "main" %gl_GlobalInvocationID
+               OpExecutionMode %1 LocalSize 64 1 1
+               OpDecorate %gl_GlobalInvocationID BuiltIn GlobalInvocationId
+               OpDecorate %_runtimearr_uint ArrayStride 4
+               OpMemberDecorate %_struct_4 0 Offset 0
+               OpDecorate %_struct_4 Block
+               OpDecorate %5 DescriptorSet 0
+               OpDecorate %5 Binding 0
+               OpDecorate %6 DescriptorSet 0
+               OpDecorate %6 Binding 1
+       %void = OpTypeVoid
+          %8 = OpTypeFunction %void
+       %uint = OpTypeInt 32 0
+     %v3uint = OpTypeVector %uint 3
+%_ptr_Input_v3uint = OpTypePointer Input %v3uint
+%gl_GlobalInvocationID = OpVariable %_ptr_Input_v3uint Input
+%_runtimearr_uint = OpTypeRuntimeArray %uint
+  %_struct_4 = OpTypeStruct %_runtimearr_uint
+%_ptr_StorageBuffer__struct_4 = OpTypePointer StorageBuffer %_struct_4
+          %5 = OpVariable %_ptr_StorageBuffer__struct_4 StorageBuffer
+          %6 = OpVariable %_ptr_StorageBuffer__struct_4 StorageBuffer
+%_ptr_StorageBuffer_uint = OpTypePointer StorageBuffer %uint
+       %bool = OpTypeBool
+     %uint_0 = OpConstant %uint 0
+     %uint_1 = OpConstant %uint 1
+     %uint_7 = OpConstant %uint 7
+          %1 = OpFunction %void None %8
+         %18 = OpLabel
+         %19 = OpLoad %v3uint %gl_GlobalInvocationID
+         %20 = OpCompositeExtract %uint %19 0
+         %21 = OpBitwiseAnd %uint %20 %uint_1
+         %22 = OpIEqual %bool %21 %uint_1
+         %23 = OpSelect %_ptr_StorageBuffer__struct_4 %22 %6 %5
+         %24 = OpAccessChain %_ptr_StorageBuffer_uint %23 %uint_0 %20
+         %25 = OpIAdd %uint %20 %uint_7
+               OpStore %24 %25
+               OpReturn
+               OpFunctionEnd

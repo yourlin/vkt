@@ -1,0 +1,5 @@
+# SPDX-FileCopyrightText: 2026 yourlin
+# SPDX-License-Identifier: MIT-0
+# Every correctness test (not the benchmarks) on a malisx2 build.
+driver: ./libvulkan_malisx2.so
+strict: true

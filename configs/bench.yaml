@@ -1,0 +1,11 @@
+# SPDX-FileCopyrightText: 2026 yourlin
+# SPDX-License-Identifier: MIT-0
+# The benchmarks, as in the PR measurements: 5000 draws, 1000 dispatches,
+# 3 s of GPU warm-up, best of 5 runs after one warm-up run. Pass the driver
+# on the command line: vkt -sys -c bench.yaml, vkt ./lib.so -c bench.yaml.
+tests: [bench]
+bench:
+  n: 5000
+  warm_up_ms: 3000
+  runs: 6
+  delay_s: 0

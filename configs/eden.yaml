@@ -1,0 +1,12 @@
+# SPDX-FileCopyrightText: 2026 yourlin
+# SPDX-License-Identifier: MIT-0
+# The features Eden needs, without the pipeline cache rounds.
+driver: ./libvulkan_malisx2.so
+strict: true
+tests:
+  - eden
+  - stages/cull-distance
+  - stages/multi-viewport
+  - stages/polygon-mode
+  - stages/geometry-shader
+  - stages/tessellation

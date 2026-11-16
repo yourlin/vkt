@@ -1,0 +1,16 @@
+// SPDX-FileCopyrightText: 2026 yourlin
+// SPDX-License-Identifier: MIT-0
+#version 450
+// A dependent chain of loads through the table data[0..4095], one chain per
+// invocation, the result to data[4096 + flat id].
+layout(local_size_x = 64) in;
+layout(std430, binding = 0) buffer B { uint data[]; };
+void main()
+{
+   uint wg = gl_WorkGroupID.x + gl_WorkGroupID.y * gl_NumWorkGroups.x;
+   uint i = gl_LocalInvocationID.x;
+   uint v = i;
+   for (int k = 0; k < 16; k++)
+      v = data[(v * 7u + uint(k)) & 4095u] & 4095u;
+   data[4096u + wg * 64u + i] = v;
+}

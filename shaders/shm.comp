@@ -1,0 +1,18 @@
+// SPDX-FileCopyrightText: 2026 yourlin
+// SPDX-License-Identifier: MIT-0
+#version 450
+// Shared memory: each workgroup reverses its 64 global ids through shared
+// memory. The index is flat over a 2D grid of workgroups, so every dispatch
+// shape writes data[0 .. groups*64) and data[g] == g ^ 63.
+layout(local_size_x = 64) in;
+layout(std430, binding = 0) buffer B { uint data[]; };
+shared uint s[64];
+void main()
+{
+   uint l = gl_LocalInvocationIndex;
+   uint wg = gl_WorkGroupID.x + gl_WorkGroupID.y * gl_NumWorkGroups.x;
+   uint g = wg * 64u + l;
+   s[l] = g;
+   barrier();
+   data[g] = s[63u - l];
+}

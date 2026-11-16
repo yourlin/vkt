@@ -1,0 +1,6 @@
+# Build output (build.sh)
+/build/
+# Images and logs written by test runs
+*.ppm
+*.log
+.DS_Store
