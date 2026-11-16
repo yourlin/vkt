@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: 2026 yourlin
+# SPDX-License-Identifier: MIT-0
+#
+# A malisx2 build, pushed next to vkt as libvulkan_malisx2.so: every test
+# but the benchmarks, strict, so a feature the build should offer and does
+# not fails the run (see docs/malisx2.md for what each GPU offers).
+#
+#   ./vkt -c malisx2.yaml               # the tests
+#   ./vkt -c malisx2.yaml bench         # the benchmarks, with the settings below
+#   ./vkt -sys -c malisx2.yaml          # the same on the system driver
+driver: ./libvulkan_malisx2.so
+strict: true
+bench:
+  n: 5000
+  warm_up_ms: 3000
+  runs: 6
+  delay_s: 0

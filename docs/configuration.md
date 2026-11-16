@@ -150,10 +150,11 @@ silently keep its default.
 
 ## Examples
 
-`configs/` has three:
+`configs/` has four:
 
 | File | Runs |
 |---|---|
 | [`all.yaml`](../configs/all.yaml) | every test but the benchmarks on `./libvulkan_malisx2.so`, strict |
 | [`eden.yaml`](../configs/eden.yaml) | the features Eden needs, without the pipeline cache rounds, strict |
 | [`bench.yaml`](../configs/bench.yaml) | the benchmarks with the published settings; the driver comes from the command line |
+| [`malisx2.yaml`](../configs/malisx2.yaml) | a malisx2 build: every test, strict, and the benchmark settings for `vkt -c malisx2.yaml bench`; see [malisx2.md](malisx2.md) |

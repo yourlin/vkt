@@ -46,10 +46,14 @@ Run on a phone:
     adb shell
     cd /data/local/tmp/vkt
     ./vkt -sys                              # every test on the system driver
-    ./vkt libvulkan_malisx2.so --strict     # every test on a driver build
-    ./vkt libvulkan_malisx2.so 'stages/*'   # some tests
-    ./vkt libvulkan_malisx2.so -c bench.yaml   # the benchmarks
+    ./vkt -c malisx2.yaml                   # every test on a malisx2 build, strict
+    ./vkt -c malisx2.yaml 'stages/*'        # some tests
+    ./vkt -c malisx2.yaml bench             # the benchmarks
     ./vkt -l                                # list the tests
+
+With malisx2: [docs/malisx2.md](docs/malisx2.md) covers building the
+driver, the configuration (`configs/malisx2.yaml`), and what to expect on
+each Mali GPU.
 
 ## Usage
 
@@ -90,6 +94,7 @@ Examples: [`configs/`](configs/).
 - [docs/configuration.md](docs/configuration.md): every configuration key
 - [docs/tests.md](docs/tests.md): every test
 - [docs/benchmarks.md](docs/benchmarks.md): how the benchmarks measure, their output
+- [docs/malisx2.md](docs/malisx2.md): testing a malisx2 build: building it, the configuration, what to expect per GPU
 - [docs/development.md](docs/development.md): building, the code, adding a test
 
 ## License
