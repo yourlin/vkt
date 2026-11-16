@@ -1,0 +1,125 @@
+.clang-format
+  s_393f6b30cd4f1a::t_2bd6eb61692622 1-28
+.gitignore
+  s_393f6b30cd4f1a::t_e68296cd3b72ea 1-6
+LICENSE
+  s_393f6b30cd4f1a::t_03cc191174213b 1-16
+README.md
+  s_393f6b30cd4f1a::t_7b41e2133716fe 1-97
+configs/all.yaml
+  s_393f6b30cd4f1a::t_9678f74c7e16a7 1-5
+configs/bench.yaml
+  s_393f6b30cd4f1a::t_87671423664311 1-11
+configs/eden.yaml
+  s_393f6b30cd4f1a::t_534c99a99ef45d 1-12
+docs/benchmarks.md
+  s_393f6b30cd4f1a::t_6581806b967727 1-74
+docs/configuration.md
+  s_393f6b30cd4f1a::t_423f3c9fc745a2 1-159
+docs/development.md
+  s_393f6b30cd4f1a::t_2226bc08e62265 1-83
+docs/tests.md
+  s_393f6b30cd4f1a::t_b0c4973ca84662 1-214
+docs/usage.md
+  s_393f6b30cd4f1a::t_abd9c73281ed27 1-93
+shaders/chain.comp
+  s_393f6b30cd4f1a::t_3192f379998537 1-16
+shaders/gs_col.frag
+  s_393f6b30cd4f1a::t_32434ebecc2a16 1-6
+shaders/gs_pass.geom
+  s_393f6b30cd4f1a::t_e547c31f0a7953 1-19
+shaders/gs_pass.vert
+  s_393f6b30cd4f1a::t_b2cf5febac3c1c 1-11
+shaders/pos2.vert
+  s_393f6b30cd4f1a::t_ad7ad2d66fee7c 1-9
+shaders/shm.comp
+  s_393f6b30cd4f1a::t_6ea3370c622985 1-18
+shaders/solid.frag
+  s_393f6b30cd4f1a::t_19205c3f162f0d 1-6
+shaders/t1_col.vert
+  s_393f6b30cd4f1a::t_c61b53f1783216 1-11
+shaders/t1_fill.comp
+  s_393f6b30cd4f1a::t_0cc4cd3a21185b 1-11
+shaders/t1_tint.frag
+  s_393f6b30cd4f1a::t_7a3dd4168e085b 1-8
+shaders/t2_fsq.vert
+  s_393f6b30cd4f1a::t_db5cc1d671de8c 1-9
+shaders/t2_ids.frag
+  s_393f6b30cd4f1a::t_0c6df059757232 1-6
+shaders/t2_ids.vert
+  s_393f6b30cd4f1a::t_3bc6ae065809fa 1-16
+shaders/t2_line.vert
+  s_393f6b30cd4f1a::t_1796a4128844cf 1-8
+shaders/t2_solid.frag
+  s_393f6b30cd4f1a::t_c3a35c14e77f4f 1-6
+shaders/t2_vptr.spvasm
+  s_393f6b30cd4f1a::t_6e6a3dae0c4145 1-50
+shaders/t3_cull.vert
+  s_393f6b30cd4f1a::t_eb75ba227d372c 1-21
+shaders/t3_gs_quad.geom
+  s_393f6b30cd4f1a::t_ec78bc2ac91ef0 1-21
+shaders/t3_gs_static.geom
+  s_393f6b30cd4f1a::t_3efe5326b38d99 1-21
+shaders/t3_mvp.frag
+  s_393f6b30cd4f1a::t_4906b1daafc8ec 1-10
+shaders/t3_mvp.vert
+  s_393f6b30cd4f1a::t_e2b3b071d8b01f 1-11
+shaders/t3_pos.vert
+  s_393f6b30cd4f1a::t_4c9596a0f2260f 1-5
+shaders/t3_ts3.tesc
+  s_393f6b30cd4f1a::t_78b6832ec54976 1-17
+shaders/t3_ts3_dyn.tesc
+  s_393f6b30cd4f1a::t_6ed560a41890fe 1-17
+shaders/t3_ts3_frac.tesc
+  s_393f6b30cd4f1a::t_eab5c813b79d4f 1-17
+shaders/t3_ts3_frac_dyn.tesc
+  s_393f6b30cd4f1a::t_d4538a2c716f03 1-17
+shaders/t3_ts_frac.tesc
+  s_393f6b30cd4f1a::t_2e8d464c4b1cb4 1-19
+shaders/t3_ts_frac.tese
+  s_393f6b30cd4f1a::t_c566608740c19e 1-15
+shaders/t3_ts_frac_dyn.tesc
+  s_393f6b30cd4f1a::t_b832d8565650ca 1-19
+shaders/t3_ts_frac_tri.tese
+  s_393f6b30cd4f1a::t_b6599ea0d0d1ac 1-14
+shaders/t3_ts_tri.tese
+  s_393f6b30cd4f1a::t_b4f39d05a2734d 1-14
+shaders/ts.tesc
+  s_393f6b30cd4f1a::t_5a37f826182721 1-19
+shaders/ts.vert
+  s_393f6b30cd4f1a::t_a2ef6302d602e2 1-6
+shaders/ts_dyn.tesc
+  s_393f6b30cd4f1a::t_5cbe98b499c635 1-21
+shaders/ts_quad.tese
+  s_393f6b30cd4f1a::t_a339b4d333d473 1-13
+tests/basic.c
+  s_393f6b30cd4f1a::t_c65920604446e2 1-221
+tests/bench.c
+  s_393f6b30cd4f1a::t_b6ad2cafd3d519 1-636
+tests/eden.c
+  s_393f6b30cd4f1a::t_c0c8c2f7b4725a 1-277
+tests/stages.c
+  s_393f6b30cd4f1a::t_626b339fb9dcc0 1-537
+vkt.c
+  s_393f6b30cd4f1a::t_89455d955ee23a 1-327
+vkt.h
+  s_393f6b30cd4f1a::t_a8db578d928803 1-806
+yaml.h
+  s_393f6b30cd4f1a::t_c25cfb854a4c1b 1-296
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2b9572095147ee9655e2df0b034aaff861188cb2",
+  "prompts": {},
+  "sessions": {
+    "s_393f6b30cd4f1a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2f52483e-f93f-47f6-a722-29f2714d1544",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "yourlin <6930286+yourlin@users.noreply.github.com>"
+    }
+  }
+}
