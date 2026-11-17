@@ -1,0 +1,64 @@
+tests/poly.c
+  s_393f6b30cd4f1a::t_be3df7ca0bbab3 1-376
+  s_393f6b30cd4f1a::t_faa4b44cf35282 377-386
+README.md
+  s_393f6b30cd4f1a::t_3671c7883a4c6e 31
+docs/malisx2.md
+  s_393f6b30cd4f1a::t_0f1c848e75a8ae 103-107,113
+docs/tests.md
+  s_393f6b30cd4f1a::t_efe7a83d708c9e 204-270
+docs/usage.md
+  s_393f6b30cd4f1a::t_533897a71f0042 27
+shaders/t4_face.frag
+  s_393f6b30cd4f1a::t_75e0c4679a9e00 1-6
+shaders/t4_face_ccw.tese
+  s_393f6b30cd4f1a::t_4e390c71ab0093 1-11
+shaders/t4_face_cw.tese
+  s_393f6b30cd4f1a::t_188bcadc2bd53c 1-11
+shaders/t4_heavy.vert
+  s_393f6b30cd4f1a::t_18e8a12671bb55 1-18
+shaders/t4_lvl1.tesc
+  s_393f6b30cd4f1a::t_490162765f4722 1-17
+shaders/t4_lvl1q.tesc
+  s_393f6b30cd4f1a::t_ab2cb88ae58c8b 1-19
+shaders/t4_mp.geom
+  s_393f6b30cd4f1a::t_b8dbc141d86134 1-16
+shaders/t4_mp.tesc
+  s_393f6b30cd4f1a::t_a97b0375da2d2f 1-20
+shaders/t4_mp.tese
+  s_393f6b30cd4f1a::t_ab6155d1078e54 1-13
+shaders/t4_mp.vert
+  s_393f6b30cd4f1a::t_c3260646ea991a 1-15
+shaders/t4_mp_direct.frag
+  s_393f6b30cd4f1a::t_d42ad3228ca51d 1-8
+shaders/t4_pcol.tese
+  s_393f6b30cd4f1a::t_597618f5968333 1-15
+shaders/t4_psize.tesc
+  s_393f6b30cd4f1a::t_3c343e4c9c8d24 1-28
+shaders/t4_val.frag
+  s_393f6b30cd4f1a::t_658f28c312ed93 1-7
+shaders/t4_vp.geom
+  s_393f6b30cd4f1a::t_9b5ef8af4786ed 1-14
+shaders/t4_vp.tese
+  s_393f6b30cd4f1a::t_978401085e3992 1-14
+vkt.c
+  s_393f6b30cd4f1a::t_56fb2ec17920c1 13,48,72-81,250-256
+vkt.h
+  s_393f6b30cd4f1a::t_b85bd27d4aff4b 612-618,678-681,684,699-700
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "20600d296bebe54386eb13e045ffc949107a1675",
+  "prompts": {},
+  "sessions": {
+    "s_393f6b30cd4f1a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2f52483e-f93f-47f6-a722-29f2714d1544",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "yourlin <6930286+yourlin@users.noreply.github.com>"
+    }
+  }
+}
