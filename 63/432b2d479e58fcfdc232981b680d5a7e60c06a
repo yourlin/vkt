@@ -1,0 +1,33 @@
+README.md
+  s_393f6b30cd4f1a::t_acf379204549f8 32
+docs/tests.md
+  s_393f6b30cd4f1a::t_e0a1dfa216d983 271-298
+docs/usage.md
+  s_393f6b30cd4f1a::t_0493a249037369 27
+shaders/t5_dual.frag
+  s_393f6b30cd4f1a::t_b7f0acfa7a07d6 1-13
+shaders/t5_fetch.frag
+  s_393f6b30cd4f1a::t_22b135e7c9977a 1-13
+tests/blend.c
+  s_393f6b30cd4f1a::t_97930485ffb5f4 1-304
+vkt.c
+  s_393f6b30cd4f1a::t_c3ee7b0c46b9ab 13,49,83-85,254-260
+vkt.h
+  s_393f6b30cd4f1a::t_887f6f96933bb5 54,176,190-191,205-208,430-431,628-631,723,727
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "63432b2d479e58fcfdc232981b680d5a7e60c06a",
+  "prompts": {},
+  "sessions": {
+    "s_393f6b30cd4f1a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2f52483e-f93f-47f6-a722-29f2714d1544",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "yourlin <6930286+yourlin@users.noreply.github.com>"
+    }
+  }
+}
