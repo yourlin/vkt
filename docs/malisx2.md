@@ -100,15 +100,17 @@ Compare builds of malisx2 the same way: push each under its own name
 
 ## What to expect per GPU
 
-malisx2 picks its code by the GPU's Mesa architecture. On v11 and v12 it
-offers the Eden features vkt tests; on v7, v9 and v10 it does not offer
-some of them, by design, and vkt skips those tests (strict: fails them).
+malisx2 picks its code by the GPU's Mesa architecture. On the
+command-stream GPUs (v10, v11, v12) it offers the Eden features vkt tests,
+in versions that have them (geometry and tessellation shaders and the rest
+came with bmdhacks/malisx2#51); on v7 and v9 it does not offer some of
+them, by design, and vkt skips those tests (strict: fails them).
 
 | Architecture | GPUs (examples) | Expected |
 |---|---|---|
 | v12 | Mali-G720, G620 | every test passes, with a `-Dpoly` build |
 | v11 | Mali-G615, G715 | every test passes, with a `-Dpoly` build |
-| v10 | Mali-G310, G510, G610, G710 | `basic` passes; the Eden features of the v11/v12 work are not offered |
+| v10 | Mali-G310, G510, G610, G710 | every test passes, with a `-Dpoly` build |
 | v9 | Mali-G57, G68, G77, G78 | `basic` passes; most Eden features not offered |
 | v7 | Mali-G31, G51, G52, G76 | `basic` passes; most Eden features not offered |
 

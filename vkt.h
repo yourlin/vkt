@@ -609,6 +609,13 @@ struct gfx_desc {
    const VkRect2D *sc;
    int logic_op;
    VkLogicOp op;
+   /* Culling: cull_mode (default none) and the front face (default
+    * counter-clockwise). */
+   VkCullModeFlags cull_mode;
+   int front_cw;
+   /* Tessellation: the domain origin, chained when lower_left is set
+    * (default upper left). */
+   int lower_left;
    VkPipelineLayout layout;
    VkPipelineCache cache;
 };
@@ -668,8 +675,13 @@ mkgfx(const struct target *t, const struct gfx_desc *d)
       .sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO,
       .topology = tess ? VK_PRIMITIVE_TOPOLOGY_PATCH_LIST : d->topology,
    };
+   VkPipelineTessellationDomainOriginStateCreateInfo origin = {
+      .sType = VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO,
+      .domainOrigin = VK_TESSELLATION_DOMAIN_ORIGIN_LOWER_LEFT,
+   };
    VkPipelineTessellationStateCreateInfo ts = {
       .sType = VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_STATE_CREATE_INFO,
+      .pNext = d->lower_left ? &origin : NULL,
       .patchControlPoints = d->patch_points ? d->patch_points : 4,
    };
    VkViewport vp = {0, 0, (float)t->w, (float)t->h, 0, 1};
@@ -684,8 +696,8 @@ mkgfx(const struct target *t, const struct gfx_desc *d)
    VkPipelineRasterizationStateCreateInfo rs = {
       .sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO,
       .polygonMode = d->polygon,
-      .cullMode = VK_CULL_MODE_NONE,
-      .frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE,
+      .cullMode = d->cull_mode,
+      .frontFace = d->front_cw ? VK_FRONT_FACE_CLOCKWISE : VK_FRONT_FACE_COUNTER_CLOCKWISE,
       .lineWidth = d->line_width ? d->line_width : 1.0f,
    };
    VkPipelineMultisampleStateCreateInfo msi = {

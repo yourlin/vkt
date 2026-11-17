@@ -28,6 +28,7 @@ and prints one `PASS` or `FAIL` line per check, with the values it read.
 | `basic` | `info` (device, limits, which of the 33 features and extensions Eden needs are missing), `compute`, `draw` |
 | `eden` | `variable-pointers`, `draw-parameters`, `logic-op`, `wide-lines`, `host-query-reset` |
 | `stages` | `cull-distance`, `multi-viewport`, `polygon-mode`, `geometry-shader`, `tessellation`, `pipeline-cache` |
+| `poly` | `tess-patch-size`, `relaxed-precision`, `tess-front-face`, `viewport-index`, `compute-in-pass`: geometry and tessellation corner cases |
 | `bench` | `shared-memory`, `chain-barrier`, `draws`, `geometry`, `tessellation` (run only when selected) |
 
 [docs/tests.md](docs/tests.md) describes each test: what it draws, what it

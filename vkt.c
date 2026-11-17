@@ -10,7 +10,7 @@
  *
  * <driver> is -sys or a path to a driver library (a word ending in .so);
  * without it, the configuration's driver. A selector is a group (basic,
- * eden, stages, bench), a test (stages/tessellation) or a pattern with *
+ * eden, stages, poly, bench), a test (stages/tessellation) or a pattern with *
  * and ? ('stages/geo*', '*-lines'). Without selectors, the configuration's
  * tests; without those, every test but the bench group's, which runs only
  * when selected. -l lists what would run.
@@ -45,6 +45,7 @@
 #include "tests/basic.c"
 #include "tests/eden.c"
 #include "tests/stages.c"
+#include "tests/poly.c"
 #include "tests/bench.c"
 
 static const struct test {
@@ -68,6 +69,16 @@ static const struct test {
    {"stages/tessellation", test_tessellation, "tessellation, equal and fractional spacing"},
    {"stages/pipeline-cache", test_pipeline_cache,
     "geometry and tessellation pipelines from a cache and its serialized data"},
+   {"poly/tess-patch-size", test_tess_patch_size,
+    "tessellation pipelines that differ only in patch size"},
+   {"poly/relaxed-precision", test_relaxed_precision,
+    "a vertex shader's mediump output read by the geometry or tessellation stage"},
+   {"poly/tess-front-face", test_tess_front_face,
+    "front face of tessellated triangles: vertex order and domain origin"},
+   {"poly/viewport-index", test_viewport_index,
+    "gl_ViewportIndex from a geometry or tessellation evaluation shader"},
+   {"poly/compute-in-pass", test_compute_in_pass,
+    "draws before a vertex/tiler compute job in the same render pass"},
    {"bench/shared-memory", bench_shared_memory,
     "dispatches using shared memory, three workgroup grids"},
    {"bench/chain-barrier", bench_chain_barrier,
@@ -236,12 +247,13 @@ load_config(const char *path, struct config *cfg)
 static void __attribute__((noreturn))
 usage(const char *argv0)
 {
-   printf("usage: %s [-sys|<driver.so>] [-c config.yaml] [--strict] [selector...]\n"
-          "       %s -l [-c config.yaml] [selector...]\n"
-          "selectors: a group (basic, eden, stages, bench), a test, or a pattern with * and ?;\n"
-          "  none: the configuration's tests, else all but bench\n"
-          "--strict: a feature the driver does not offer fails instead of skipping\n",
-          argv0, argv0);
+   printf(
+      "usage: %s [-sys|<driver.so>] [-c config.yaml] [--strict] [selector...]\n"
+      "       %s -l [-c config.yaml] [selector...]\n"
+      "selectors: a group (basic, eden, stages, poly, bench), a test, or a pattern with * and ?;\n"
+      "  none: the configuration's tests, else all but bench\n"
+      "--strict: a feature the driver does not offer fails instead of skipping\n",
+      argv0, argv0);
    exit(2);
 }
 

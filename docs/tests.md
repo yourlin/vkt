@@ -201,6 +201,73 @@ checks print again in each round. Then checks the serialized data is not
 empty and the second round failed nothing, and prints the data size and the
 pipeline creation time of both rounds.
 
+## poly
+
+Corner cases of geometry and tessellation shaders that a driver
+implementing them in software (vertex shaders fused into the next stage,
+compute jobs before the draw, as Mesa's libpoly does) can get wrong.
+
+### poly/tess-patch-size
+
+Needs: `tessellationShader`.
+
+Twelve vertices on a line, drawn as patches of 4 (3 patches) and then of 3
+(4 patches) with the same shaders, both pipelines created through one
+pipeline cache; then the other way round, with a new cache. The control
+shader puts a small square at the mean of each patch's vertices, red for
+patches of 3 and green for 4. Checks every square is in place and coloured
+right, and nothing is where the other size would put one. A driver that
+caches a control shader compiled for one patch size and reuses it for
+another fails the second pipeline of each pair.
+
+### poly/relaxed-precision
+
+Needs: `geometryShader`, `tessellationShader` (each part is skipped on its
+own).
+
+A vertex shader writes `2, 0.5, -3, 100` to a `mediump` output, exact in 16
+bits; it is read by the fragment shader directly, by a geometry shader, and
+by a tessellation control shader, and written to an
+`R32G32B32A32_SFLOAT` target. Checks the values within 0.1 %. A stage that
+reads a 16-bit output back as 32 bits gets something else (0, or NaN).
+
+### poly/tess-front-face
+
+Needs: `tessellationShader`.
+
+One triangle patch, level 1, with vertex order `cw` and `ccw` and the domain
+origin upper and lower left (`VkPipelineTessellationDomainOriginStateCreateInfo`).
+The fragment shader is green on front faces and red on back faces; the draw
+is repeated with back faces culled. Checks each combination against the
+spec's winding rule: for this patch, `ccw` with an upper-left origin is
+front-facing (`VK_FRONT_FACE_COUNTER_CLOCKWISE`), and `cw` and a lower-left
+origin each turn it over.
+
+### poly/viewport-index
+
+Needs: `multiViewport` and `maxViewports` ≥ 4; `geometryShader` for the
+first part; `tessellationShader` and `VK_EXT_shader_viewport_index_layer`
+for the second. Images: `poly_vp_gs.ppm`, `poly_vp_tes.ppm`.
+
+On 64 x 64, four viewports (the quadrants). A geometry shader with 4
+invocations sends invocation k's copy of a full-target triangle to
+viewport k; then a tessellation evaluation shader sends patch k of four
+full-target quads to viewport k. The fragment shader colours by
+`gl_ViewportIndex`. Checks each quadrant has its viewport's colour.
+
+### poly/compute-in-pass
+
+Needs: `tessellationShader` or `fillModeNonSolid`. Image (only when it
+fails): `poly_compute_in_pass.ppm`.
+
+A render pass with a slow draw over every pixel of 64 x 64 (a vertex shader
+with a long loop, one instance per pixel), then a draw that makes the
+driver run a compute job on the vertex/tiler stream first (tessellation
+with levels from the control shader, else line polygon mode), drawn
+off-screen, then the end of the pass. Repeated 20 times; checks no pixel is
+ever missing. It is a race: a pass is enough to show a missing wait, not to
+prove there is none.
+
 ## bench
 
 Benchmarks; they run only when selected. See [benchmarks.md](benchmarks.md).
