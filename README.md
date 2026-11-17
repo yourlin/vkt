@@ -29,6 +29,7 @@ and prints one `PASS` or `FAIL` line per check, with the values it read.
 | `eden` | `variable-pointers`, `draw-parameters`, `logic-op`, `wide-lines`, `host-query-reset` |
 | `stages` | `cull-distance`, `multi-viewport`, `polygon-mode`, `geometry-shader`, `tessellation`, `pipeline-cache` |
 | `poly` | `tess-patch-size`, `relaxed-precision`, `tess-front-face`, `viewport-index`, `compute-in-pass`: geometry and tessellation corner cases |
+| `blend` | `dual-source`, `framebuffer-fetch`: blending that emulators use for blend modes Vulkan cannot express |
 | `bench` | `shared-memory`, `chain-barrier`, `draws`, `geometry`, `tessellation` (run only when selected) |
 
 [docs/tests.md](docs/tests.md) describes each test: what it draws, what it

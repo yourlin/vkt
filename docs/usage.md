@@ -24,7 +24,7 @@ lists them, and [tests.md](tests.md) describes them.
 
 | Selector | Picks |
 |---|---|
-| a group: `eden` (groups: `basic`, `eden`, `stages`, `poly`, `bench`) | every test of the group |
+| a group: `eden` (groups: `basic`, `eden`, `stages`, `poly`, `blend`, `bench`) | every test of the group |
 | a name: `stages/tessellation` | that test |
 | a pattern: `'stages/geo*'`, `'*-lines'`, `'eden/?ogic-op'` | the tests it matches, as `fnmatch(3)` (`*`, `?`, `[...]`) |
 

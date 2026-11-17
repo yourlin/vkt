@@ -51,6 +51,7 @@ static struct {
    VkPhysicalDeviceShaderDrawParametersFeatures dp;
    VkPhysicalDeviceHostQueryResetFeatures hqr;
    VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures demote;
+   VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT roaa;
 } vkt_features;
 #define FEAT (vkt_features.f2.features)
 
@@ -172,6 +173,7 @@ static const char *const vkt_wanted_exts[] = {
    VK_KHR_DRIVER_PROPERTIES_EXTENSION_NAME,
    VK_KHR_DRAW_INDIRECT_COUNT_EXTENSION_NAME,
    VK_EXT_SHADER_DEMOTE_TO_HELPER_INVOCATION_EXTENSION_NAME,
+   VK_EXT_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXTENSION_NAME,
 };
 
 /* The features2 chain of the structs the driver's extensions define. */
@@ -185,6 +187,8 @@ vkt_chain_features(void)
    vkt_features.hqr.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES;
    vkt_features.demote.sType =
       VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES;
+   vkt_features.roaa.sType =
+      VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT;
    void **next = &vkt_features.f2.pNext;
    *next = &vkt_features.vp;
    next = &vkt_features.vp.pNext;
@@ -197,6 +201,10 @@ vkt_chain_features(void)
    if (has_ext(VK_EXT_SHADER_DEMOTE_TO_HELPER_INVOCATION_EXTENSION_NAME)) {
       *next = &vkt_features.demote;
       next = &vkt_features.demote.pNext;
+   }
+   if (has_ext(VK_EXT_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXTENSION_NAME)) {
+      *next = &vkt_features.roaa;
+      next = &vkt_features.roaa.pNext;
    }
 }
 
@@ -419,7 +427,8 @@ mktarget_fmt(uint32_t w, uint32_t h, VkFormat format, uint32_t bpp)
       .arrayLayers = 1,
       .samples = VK_SAMPLE_COUNT_1_BIT,
       .tiling = VK_IMAGE_TILING_OPTIMAL,
-      .usage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT,
+      .usage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT |
+               VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT,
    };
    CHECK(D(CreateImage)(dev, &ii, NULL, &t.img));
    VkMemoryRequirements req;
@@ -616,6 +625,10 @@ struct gfx_desc {
    /* Tessellation: the domain origin, chained when lower_left is set
     * (default upper left). */
    int lower_left;
+   /* Blending of the colour attachment (default: off, all channels
+    * written), and the colour blend state's flags. */
+   const VkPipelineColorBlendAttachmentState *blend;
+   VkPipelineColorBlendStateCreateFlags blend_flags;
    VkPipelineLayout layout;
    VkPipelineCache cache;
 };
@@ -707,10 +720,11 @@ mkgfx(const struct target *t, const struct gfx_desc *d)
    VkPipelineColorBlendAttachmentState cba = {.colorWriteMask = 0xf};
    VkPipelineColorBlendStateCreateInfo cbs = {
       .sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO,
+      .flags = d->blend_flags,
       .logicOpEnable = d->logic_op,
       .logicOp = d->op,
       .attachmentCount = 1,
-      .pAttachments = &cba,
+      .pAttachments = d->blend ? d->blend : &cba,
    };
    VkDynamicState dyn = VK_DYNAMIC_STATE_LINE_WIDTH;
    VkPipelineDynamicStateCreateInfo ds = {

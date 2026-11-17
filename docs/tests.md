@@ -268,6 +268,34 @@ off-screen, then the end of the pass. Repeated 20 times; checks no pixel is
 ever missing. It is a race: a pass is enough to show a missing wait, not to
 prove there is none.
 
+## blend
+
+The blending an emulator needs for blend modes Vulkan's fixed-function
+blending cannot express (PCSX2 and ARMSX2's PS2 blending, for example).
+
+### blend/dual-source
+
+Needs: `dualSrcBlend`.
+
+Four full-target draws on 16 x 16, each with a fragment shader writing two
+colours (`index = 0` and `index = 1`) onto a clear of `(0.2, 0.6, 1.0,
+0.5)`: `src + dst * SRC1_COLOR`, `src * SRC1_ALPHA + dst * (1 - SRC1_ALPHA)`,
+`dst - src * SRC1_COLOR` (reverse subtract) and `src * DST_ALPHA + dst *
+SRC1_ALPHA`. Checks each result against the blend equation computed on the
+CPU, each channel within 2.
+
+### blend/framebuffer-fetch
+
+Needs: `rasterizationOrderColorAttachmentAccess`
+(`VK_EXT_rasterization_order_attachment_access`).
+
+The colour attachment is also the subpass's input attachment, in the
+`GENERAL` layout, with rasterization-order access on the subpass and the
+pipeline. The fragment shader reads the pixel and writes it back with red
+4/255 higher. 32 full-target triangles, first as 32 draws, then as one draw
+of 32 instances. Checks every pixel of 64 x 64 ends at red 128: a read that
+missed the previous write leaves it lower.
+
 ## bench
 
 Benchmarks; they run only when selected. See [benchmarks.md](benchmarks.md).
